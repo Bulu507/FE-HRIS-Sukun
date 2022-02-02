@@ -1,22 +1,7 @@
 <template>
   <v-container class="mt-9 pa-0">
-    <v-row>
-      <v-col cols="12" md="12">
-        <div>
-          <v-alert
-            v-model="alert"
-            type="success"
-            border="left"
-            close-text="Close Alert"
-            color="#444941"
-            dark
-            class="fontall"
-            dismissible
-          >
-            Login Berhasil! Selamat datang di <strong>HRIS</strong>
-          </v-alert>
-        </div>
-
+    <v-row dense class="mt-5">
+      <v-col class="pa-2" cols="12" md="12">
         <v-card>
           <v-card-title class="fontall" v-if="isMorning()">
             Good Morning, {{ namaAdmin }}</v-card-title
