@@ -5,7 +5,6 @@
       :items="itemsbr"
       large
       color="black"
-      style="font-weight: bold"
       ><template v-slot:divider>
         <v-icon>mdi-chevron-right</v-icon>
       </template></v-breadcrumbs
@@ -15,10 +14,10 @@
       :headers="headers"
       :items="dataobject"
       :search="search"
-      class="rounded elevation-6 mx-3 pa-1 fontall"
+      class="rounded elevation-6 mx-3 pa-1 itemchild"
     >
       <template v-slot:item.role_name="{ item }">
-        <v-chip :color="getColorStatus(item.role)" dark>
+        <v-chip label :color="getColorStatus(item.role)" dark>
           {{ item.role_name }}
         </v-chip>
       </template>
@@ -28,23 +27,24 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="Search here..."
             single-line
             hide-details
           ></v-text-field>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <!-- <v-btn dark class="mb-2" @click="showAddModal()" color="green">
-            <v-icon small>mdi-plus</v-icon> Add Item
-          </v-btn> -->
           <!-- Modal Add Edit -->
-          <v-dialog v-model="dialog" max-width="600px">
+          <v-dialog persistent v-model="dialog" max-width="600px">
             <v-card>
               <v-card-title class="headermodalstyle">
                 Edit Menu Access
+                <v-spacer></v-spacer>
+                <v-btn icon dark large class="right" @click="close()">
+                  <v-icon>mdi-close-box-outline</v-icon>
+                </v-btn>
               </v-card-title>
               <!-- <v-divider></v-divider> -->
-              <v-card-text>
+              <v-card-text class="fontall">
                 <v-container>
                   <v-row>
                     <v-col cols="12" sm="4" md="4">
@@ -67,8 +67,12 @@
                         :items="itemsMenu"
                         item-value="id"
                         item-text="name"
-                        label="Pilih Tambah Menu Access"
                         outlined
+                        label="Pilih Tambah Menu Access"
+                        class="fontall"
+                        color="#25695c"
+                        placeholder="Pilih Tambah Menu Access"
+                        dense
                         v-on:change="selectedMenuAccess($event)"
                       ></v-select>
                     </v-col>
@@ -86,9 +90,9 @@
                           <v-icon
                             class="mr-2"
                             @click="deletelistmenu(item)"
-                            color="red"
+                            color="#d42f2f"
                           >
-                            mdi-delete
+                            mdi-delete-outline
                           </v-icon>
                           <!-- <v-icon @click="deleteItem(item)" color="red"> mdi-delete </v-icon> -->
                         </template>
@@ -99,10 +103,10 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" elevation="1" outlined @click="close">
+                <v-btn dark color="red" @click="close">
                   <v-icon left> mdi-close-circle-outline </v-icon> Cancel
                 </v-btn>
-                <v-btn color="success" elevation="1" outlined @click="save">
+                <v-btn :loading="loading" dark color="#25695c" @click="save">
                   <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
                   Save
                 </v-btn>
@@ -112,8 +116,8 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon class="mr-2" @click="showEditModal(item)" color="warning">
-          mdi-pencil-circle
+        <v-icon class="mr-2" @click="showEditModal(item)" color="#bf9168">
+          mdi-pencil-outline
         </v-icon>
         <!-- <v-icon @click="deleteItem(item)" color="red"> mdi-delete </v-icon> -->
       </template>
@@ -147,7 +151,7 @@ export default {
         href: "breadcrumbs_link_1",
       },
     ],
-
+    loading: false,
     formTitle: "Add Item",
     value: "add",
     dialog: false,
@@ -173,7 +177,7 @@ export default {
     menudropdown: "",
 
     defaultItem: {
-      code: "",
+      user_id: "",
       Nama: "",
       role: "",
       role_name: "",
@@ -211,7 +215,7 @@ export default {
     async initialize() {
       try {
         const response = await axios.get(
-          this.BaseUrlGet + "GetAdminMenuAccess",
+          this.BaseUrlGet + "GetUserMenuAccess",
           {
             headers: {
               Authorization: `Bearer ` + this.authtoken,
@@ -266,7 +270,7 @@ export default {
       // this.dialogDetail = false;
       try {
         const response = await axios.post(
-          this.BaseUrlGet + "EditMenuAccessadm",
+          this.BaseUrlGet + "EditMenuAccess",
           datapost,
           {
             headers: {
@@ -275,31 +279,33 @@ export default {
           }
         );
         console.log(response.data.data.result);
+      this.loading = false;
         if (response.data.data.result == "success") {
           this.dialog = false;
           this.snackbar = true;
-          this.colorsnackbar = "green";
+          this.colorsnackbar = "#25695C";
           this.textsnackbar = "Sukses mengubah data";
           this.initialize();
         } else {
           this.dialog = true;
           this.snackbar = true;
-          this.colorsnackbar = "red";
+          this.colorsnackbar = "#D42F2F";
           this.textsnackbar = "Gagal mengubah data";
         }
       } catch (error) {
+      this.loading = false;
         console.error(error.response);
         if (error.response.status == 401) {
           this.dialog = true;
           this.snackbar = true;
-          this.colorsnackbar = "red";
+          this.colorsnackbar = "#D42F2F";
           this.textsnackbar = "Gagal mengubah data";
           localStorage.removeItem("token");
           this.$router.push("/");
         } else {
           this.dialog = true;
           this.snackbar = true;
-          this.colorsnackbar = "red";
+          this.colorsnackbar = "#D42F2F";
           this.textsnackbar = "Gagal mengubah data";
         }
       }
@@ -307,7 +313,7 @@ export default {
 
     showEditModal(item) {
       console.log(item);
-      this.defaultItem.code = item.code;
+      this.defaultItem.user_id = item.user_id;
       this.defaultItem.Nama = item.Nama;
       this.defaultItem.role = item.role;
       this.defaultItem.role_name = item.role_name;
@@ -349,12 +355,12 @@ export default {
           this.defaultItem.MenuTable.push(itemsmenuset);
           // console.log(this.defaultItem.MenuTable);
           this.snackbar = true;
-          this.colorsnackbar = "green";
+          this.colorsnackbar = "#25695C";
           this.textsnackbar = "Sukses Tambah Menu Access";
         } else {
           this.snackbar = true;
-          this.colorsnackbar = "red";
-          this.textsnackbar = "Menu Sudah Ada Bro..!!!";
+          this.colorsnackbar = "#D42F2F";
+          this.textsnackbar = "Menu Sudah Tersedia";
         }
         // this.menudropdown.id = '';
       }
@@ -369,7 +375,8 @@ export default {
     },
 
     save() {
-      if (this.defaultItem.code.length != 0) {
+      this.loading = true;
+      if (this.defaultItem.user_id.length != 0) {
         var listmenupost = "";
         var listmenutemp = "";
         for (let n = 0; n < this.defaultItem.MenuTable.length; n++) {
@@ -383,7 +390,7 @@ export default {
         listmenupost = "[" + listmenutemp + "]";
         console.log(listmenupost);
         const datapost = {
-          code: this.defaultItem.code,
+          user_code: this.defaultItem.user_id,
           list_menu: listmenupost,
           MenuTable: this.defaultItem.MenuTable,
         };
@@ -395,17 +402,17 @@ export default {
         }
       } else {
         this.snackbar = true;
-        this.colorsnackbar = "red";
+        this.colorsnackbar = "#D42F2F";
         this.textsnackbar =
           "Gagal Simpan, Semua kolom tidak boleh ada yang kosong";
       }
     },
 
     getColorStatus(role) {
-      if (role == "1") return "green";
-      else if (role == "2") return "orange";
-      else if (role == "3") return "red";
-      else return "blue";
+      if (role == "1") return "#25695C";
+      else if (role == "2") return "#BF9168";
+      else if (role == "3") return "#D42F2F";
+      else return "#9CACA3";
     },
   },
 };

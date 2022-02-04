@@ -1,9 +1,9 @@
 <template>
   <v-app id="Trees">
-    <v-navigation-drawer :width="240" v-if="isLogin" v-model="drawer" dark app>
-      <v-list-item>
+    <v-navigation-drawer :width="277" v-if="isLogin" v-model="drawer" app>
+      <!-- <v-list-item>
         <v-list-item-content>
-          <!-- <v-list-item-title
+          <v-list-item-title
             style="color: #00ffff; font-weight: 550; font-size: 125%"
             class="fontall"
           >
@@ -11,20 +11,35 @@
           </v-list-item-title>
           <v-list-item-subtitle style="color: #00ffff"
             >System Management</v-list-item-subtitle
-          > -->
+          >
           <v-img height="52" src="/images/adms_header.png"></v-img>
         </v-list-item-content>
-      </v-list-item>
+      </v-list-item> -->
+
+      <v-layout column align-center>
+        <!-- setting margin profil kiri -->
+        <v-flex class="pa-6 pb-4 text-center">
+          <v-avatar size="80">
+            <img src="images/avatar.png" />
+          </v-avatar>
+          <v-list-item-title class="fontall" style="color: #25695c">
+            {{ nameadmin }}
+          </v-list-item-title>
+          <v-list-item-subtitle class="fontall" style="color: #787a91">{{
+            statusadmin
+          }}</v-list-item-subtitle>
+        </v-flex>
+      </v-layout>
 
       <v-divider style="background-color: white !important"></v-divider>
 
-      <v-list color="transparent" shaped>
-        <v-list-item color="#00FFFF" :to="DashboardLink" link>
+      <v-list color="transparent" dense nav>
+        <v-list-item color="#25695c" :to="DashboardLink" link>
           <v-list-item-icon>
             <v-icon>mdi-view-dashboard</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-title>Dashboard</v-list-item-title>
+          <v-list-item-title class="itemparent">Dashboard</v-list-item-title>
         </v-list-item>
         <v-list-group
           v-for="item in items"
@@ -32,13 +47,13 @@
           v-model="item.active"
           :prepend-icon="item.icon"
           no-action
-          color="#00FFFF"
-          class="fontall"
+          color="#25695c"
         >
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title
                 class="itemparent"
+                color="#25695c"
                 v-text="item.title"
               ></v-list-item-title>
             </v-list-item-content>
@@ -62,66 +77,137 @@
 
       <h5
         class="fontall footernav"
-        style="color: #00ffff; font-weight: 550; font-size: 80%"
+        style="color: #25695c; font-weight: 550; font-size: 80%"
       >
-        © Dev 2021
+        Copyright 2021 © DEV
       </h5>
     </v-navigation-drawer>
 
     <v-app-bar class="mx-2 mt-1" v-if="isLogin" app>
       <v-app-bar-nav-icon
-        style="color: black"
+        style="color: #25695c"
         @click="drawer = !drawer"
       ></v-app-bar-nav-icon>
 
       <v-toolbar-title
-        style="color: black; font-weight: bold"
+        style="color: lime; font-weight-medium"
         class="pl-1 fontall"
       >
-        <a
-          class="d-none d-sm-block"
-          href="/"
-          style="text-decoration: none; color: black"
-        >
-          Distribusi Pelita Nusantara
-        </a>
-        <a
-          class="d-sm-none"
-          href="/"
-          style="text-decoration: none; color: black"
-        >
-          DISTARA
-        </a>
+        <v-img
+          max-height="48"
+          max-width="220"
+          src="/images/hris_header.png"
+        ></v-img>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-menu offset-y open-on-hover>
+      <v-menu offset-y open-on-hover min-width="230">
         <template v-slot:activator="{ on }">
-          <v-btn class="px-1 mr-1" text color="black" size="200" v-on="on">
-            <div style="text-align: right" class="mr-2">
+          <v-btn class="px-1 mr-1" text color="black" v-on="on">
+            <!-- <div style="text-align: right" class="mr-2">
               <p style="font-weight: bold" class="font-weight-bolder mb-0">
                 {{ nameadmin }}
               </p>
               <span style="font-size: 9px">{{ statusadmin }}</span>
-            </div>
-            <v-avatar size="35">
-              <v-icon x-large color="black">mdi-account-circle</v-icon>
-            </v-avatar>
+            </div> -->
+            <v-badge
+              bottom
+              color="success"
+              overlap
+              offset-x="12"
+              offset-y="12"
+              class="ms-4"
+              dot
+            >
+              <v-avatar size="35">
+                <img src="images/avatar.png" />
+              </v-avatar>
+            </v-badge>
+          </v-btn>
+          <v-btn icon>
+            <v-icon>mdi-bell-outline</v-icon>
           </v-btn>
         </template>
-        <v-list rounded style="overflow-y: hidden !important">
-          <v-list-item
-            v-for="(item, index) in itemsprofile"
-            :key="index"
-            @click="selectSection(item)"
-            color="primary"
-          >
-            <v-list-item-title
-              ><v-icon small color="black">{{ item.icon }}</v-icon>
-              {{ item.title }}</v-list-item-title
+        <v-list class="fontall">
+          <div class="pb-3 pt-2">
+            <v-badge
+              bottom
+              color="success"
+              overlap
+              offset-x="12"
+              offset-y="12"
+              class="ms-4"
+              dot
             >
+              <v-avatar size="35">
+                <img src="images/avatar.png" />
+              </v-avatar>
+            </v-badge>
+            <div
+              class="d-inline-flex flex-column justify-center ms-3"
+              style="vertical-align: middle"
+            >
+              <span class="text--primary font-weight-semibold mb-n1">
+                {{ nameadmin }}
+              </span>
+              <small class="text--disabled text-capitalize">{{
+                statusadmin
+              }}</small>
+            </div>
+          </div>
+          <v-divider></v-divider>
+
+          <!-- Profile -->
+          <v-list-item link>
+            <v-list-item-icon class="me-2">
+              <v-icon size="22"> mdi-account-outline </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Profile</v-list-item-title>
+            </v-list-item-content>
           </v-list-item>
+
+          <!-- Chat -->
+          <v-list-item link>
+            <v-list-item-icon class="me-2">
+              <v-icon size="22"> mdi-chat-outline </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Chat</v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-badge inline color="error" content="2"> </v-badge>
+            </v-list-item-action>
+          </v-list-item>
+
+          <!-- Email -->
+          <v-list-item link>
+            <v-list-item-icon class="me-2">
+              <v-icon size="22"> mdi-email-outline </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Inbox</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider></v-divider>
+          <!-- Reset&Logout -->
+
+          <v-list-item-content>
+            <v-list-item
+              v-for="(item, index) in itemsprofile"
+              :key="index"
+              @click="selectSection(item)"
+            >
+              <v-list-item-icon class="me-2">
+                <v-icon size="22">{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-content>
         </v-list>
       </v-menu>
     </v-app-bar>
@@ -134,16 +220,20 @@
 
 <script>
 import axios from "axios";
+import NotificationBell from "vue-notification-bell";
 
 export default {
   data: () => ({
+    components: {
+      NotificationBell, // Registering Component
+    },
     drawer: null,
     nameadmin: "admin web",
     statusadmin: "admin",
     DashboardLink: "/Dashboard",
     itemsprofile: [
       { title: "Ganti Password", icon: "mdi-lock-reset" },
-      { title: "Logout", icon: "mdi-logout" },
+      { title: "Logout", icon: "mdi-logout-variant" },
     ],
     User: [],
     items: [],

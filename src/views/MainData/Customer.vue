@@ -15,42 +15,62 @@
       :headers="headers"
       :items="dataobject"
       :search="search"
-      class="rounded elevation-6 mx-3 pa-1 fontall"
+      class="rounded elevation-6 mx-3 pa-1 itemchild"
     >
       <template v-slot:top>
         <v-toolbar flat>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            label="Search"
+            label="Search here..."
             single-line
             hide-details
           ></v-text-field>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-btn dark class="mb-2" @click="showAddModal()" color="green">
+          <v-btn dark class="mb-2" @click="showAddModal()" color="#25695c">
             <v-icon small>mdi-plus</v-icon> Add Item
           </v-btn>
-          <v-dialog v-model="dialog" max-width="700px">
+          <!-- Prevent dialog from closing -->
+          <v-dialog persistent v-model="dialog" max-width="700px">
             <v-card>
               <v-card-title class="headermodalstyle" style="margin-bottom: 2px">
                 <span>{{ formTitle }}</span>
+                <v-spacer></v-spacer>
+                <v-btn icon dark large class="right" @click="close()">
+                  <v-icon>mdi-close-box-outline</v-icon>
+                </v-btn>
               </v-card-title>
               <v-card-text class="pa-0 fontall">
                 <v-stepper v-model="e1">
                   <v-stepper-header>
-                    <v-stepper-step editable :complete="e1 > 1" step="1">
+                    <v-stepper-step
+                      editable
+                      :complete="e1 > 1"
+                      step="1"
+                      class="itemparent"
+                    >
                       Data Utama
                     </v-stepper-step>
                     <v-divider></v-divider>
-                    <v-stepper-step editable :complete="e1 > 2" step="2">
+                    <v-stepper-step
+                      editable
+                      :complete="e1 > 2"
+                      step="2"
+                      class="itemparent"
+                    >
                       Data Tambahan
                     </v-stepper-step>
-                    <v-stepper-step editable :complete="e1 > 3" step="3">
+                    <v-stepper-step
+                      editable
+                      :complete="e1 > 3"
+                      step="3"
+                      class="itemparent"
+                    >
                       Data Pembelian
                     </v-stepper-step>
                     <v-divider></v-divider>
-                    <v-stepper-step editable step="4">
+                    <v-stepper-step editable step="4" class="itemparent">
                       Data Pemilik
                     </v-stepper-step>
                   </v-stepper-header>
@@ -65,32 +85,44 @@
                               :items="dataadmin"
                               item-value="code"
                               item-text="nama"
-                              label="Pilih Salesman"
+                              dense
                               outlined
+                              label="Pilih Salesman"
+                              class="fontall"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-select>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="12" md="12">
                             <v-text-field
                               v-model="defaultItem.nama_customer"
-                              label="Nama Customer"
                               outlined
+                              dense
+                              label="Nama Customer"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.telephone"
-                              label="No Telephone"
                               outlined
+                              label="No Telephone"
+                              class="itemparent"
+                              color="#25695c"
+                              dense
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.no_hp_wa"
-                              label="No Hp/Wa"
                               outlined
+                              dense
+                              label="No HP/WA"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
@@ -100,16 +132,22 @@
                               :items="itemsKabRO"
                               item-value="id_alamat"
                               item-text="text"
-                              label="Pilih Kec/Kab"
                               outlined
+                              dense
+                              label="Pilih Kec/Kab"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-combobox>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="12" md="12">
                             <v-textarea
                               v-model="defaultItem.alamat_customer"
-                              label="Alamat"
                               outlined
+                              dense
+                              label="Alamat"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                               rows="3"
                             ></v-textarea>
@@ -120,19 +158,19 @@
                       <v-row class="mx-2 mb-2">
                         <v-spacer></v-spacer>
                         <v-btn
+                          dark
                           class="mr-1"
-                          color="red"
+                          color="#D42F2F"
                           elevation="1"
                           @click="close"
-                          outlined
                         >
                           <v-icon left> mdi-close-circle-outline </v-icon>
                           Cancel
                         </v-btn>
                         <v-btn
+                          dark
                           elevation="1"
-                          outlined
-                          color="primary"
+                          color="#25695c"
                           @click="e1 = 2"
                         >
                           <v-icon left>
@@ -149,40 +187,55 @@
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.kode_rayon"
-                              label="Kode Rayon"
                               outlined
+                              dense
+                              label="Kode Rayon"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.no_npwp"
-                              label="No NPWP"
                               outlined
+                              dense
+                              label="No NPWP"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.bentuk_bidang_usaha"
-                              label="Bentuk Bidang Usaha"
                               outlined
+                              dense
+                              label="Bentuk Bidang Usaha"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.bidang_usaha"
-                              label="Bidang Usaha"
                               outlined
+                              dense
+                              label="Bidang Usaha"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="12" md="12">
                             <v-text-field
                               v-model="defaultItem.profil_pelanggan"
-                              label="Profil Pelanggan"
                               outlined
+                              dense
+                              label="Profil Pelanggan"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
@@ -192,19 +245,19 @@
                       <v-row class="mx-2 mb-2">
                         <v-spacer></v-spacer>
                         <v-btn
+                          dark
                           class="mr-1"
-                          color="red"
+                          color="#D42F2F"
                           elevation="1"
                           @click="close"
-                          outlined
                         >
                           <v-icon left> mdi-close-circle-outline </v-icon>
                           Cancel
                         </v-btn>
                         <v-btn
+                          dark
                           elevation="1"
-                          outlined
-                          color="primary"
+                          color="#25695c"
                           @click="e1 = 3"
                         >
                           <v-icon left>
@@ -224,8 +277,11 @@
                               :items="itemsPermintaan"
                               item-value="value"
                               item-text="text"
-                              label="Permintaan Barang"
                               outlined
+                              dense
+                              label="Permintaan Barang"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-select>
                           </v-col>
@@ -235,32 +291,44 @@
                               :items="itemsPembayaran"
                               item-value="value"
                               item-text="text"
-                              label="Metode Pembayaran"
                               outlined
+                              dense
+                              label="Metode Pembayaran"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-select>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.bank"
-                              label="Bank"
                               outlined
+                              dense
+                              label="Bank"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.no_rek"
-                              label="No Rek"
                               outlined
+                              dense
+                              label="No Rek"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.code_limit"
-                              label="Credit Limit"
                               outlined
+                              dense
+                              label="Credit Limit"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
@@ -270,19 +338,19 @@
                       <v-row class="mx-2 mb-2">
                         <v-spacer></v-spacer>
                         <v-btn
+                          dark
                           class="mr-1"
-                          color="red"
+                          color="#D42F2F"
                           elevation="1"
                           @click="close"
-                          outlined
                         >
                           <v-icon left> mdi-close-circle-outline </v-icon>
                           Cancel
                         </v-btn>
                         <v-btn
+                          dark
                           elevation="1"
-                          outlined
-                          color="primary"
+                          color="#25695c"
                           @click="e1 = 4"
                         >
                           <v-icon left>
@@ -302,32 +370,44 @@
                               :items="itemsKepemilikan"
                               item-value="value"
                               item-text="text"
-                              label="Kepemilikan Usaha"
                               outlined
+                              dense
+                              label="Kepemilikan Usaha"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-select>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.nama_pemilik"
-                              label="Nama Pemilik"
                               outlined
+                              dense
+                              label="Nama Pemilik"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="6" md="6">
                             <v-text-field
                               v-model="defaultItem.no_ktp_pemilik"
-                              label="No Ktp Pemilik"
                               outlined
+                              dense
+                              label="No KTP Pemilik"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                             ></v-text-field>
                           </v-col>
                           <v-col class="pb-0" cols="12" sm="12" md="12">
                             <v-textarea
                               v-model="defaultItem.alamat_pemilik"
-                              label="Alamat Pemilik"
                               outlined
+                              dense
+                              label="Alamat Pemilik"
+                              class="itemparent"
+                              color="#25695c"
                               :rules="[(v) => !!v || 'Field is required']"
                               rows="3"
                             ></v-textarea>
@@ -338,19 +418,20 @@
                       <v-row class="mx-2 mb-2">
                         <v-spacer></v-spacer>
                         <v-btn
+                          dark
                           class="mr-1"
-                          color="red"
+                          color="#D42F2F"
                           elevation="1"
                           @click="close"
-                          outlined
                         >
                           <v-icon left> mdi-close-circle-outline </v-icon>
                           Cancel
                         </v-btn>
                         <v-btn
-                          color="success"
+                          dark
+                          :loading="loading"
                           elevation="1"
-                          outlined
+                          color="#25695c"
                           @click="save"
                         >
                           <v-icon left>
@@ -383,13 +464,13 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" elevation="1" outlined @click="closeDelete">
+                <v-btn dark color="#D42F2F" elevation="1" @click="closeDelete">
                   <v-icon left> mdi-close-circle-outline </v-icon> Cancel</v-btn
                 >
                 <v-btn
-                  color="success"
+                  dark
+                  color="#25695c"
                   elevation="1"
-                  outlined
                   @click="deleteItemConfirm"
                 >
                   <v-icon left> mdi-checkbox-marked-circle-outline </v-icon
@@ -399,18 +480,27 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialogDetail" max-width="800px" class="pa-1">
+          <v-dialog
+            persistent
+            v-model="dialogDetail"
+            max-width="800px"
+            class="pa-1"
+          >
             <v-card>
               <v-card-title class="mb-0 headermodalstyle">
                 <span>Detail Customer</span>
+                <v-spacer></v-spacer>
+                <v-btn icon dark large @click="dialogDetail = false">
+                  <v-icon>mdi-close-box-outline</v-icon>
+                </v-btn>
               </v-card-title>
 
               <v-card-text class="fontall pa-1">
                 <v-container class="pa-1">
-                  <v-divider
+                  <!-- <v-divider
                     style="border-color: black !important"
                     class="mx-1 mb-2"
-                  ></v-divider>
+                  ></v-divider> -->
                   <v-simple-table>
                     <template v-slot:default>
                       <tbody>
@@ -423,7 +513,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.nama_customer }}
                           </td>
@@ -434,7 +524,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.code_customer }}
                           </td>
@@ -445,7 +535,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.telephone }} /
                             {{ defaultItem.no_hp_wa }}
@@ -461,7 +551,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.alamat_cust_ro }}
                           </td>
@@ -469,7 +559,7 @@
                         <tr>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.alamat_customer }}
                           </td>
@@ -480,7 +570,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             <tr>
                               {{
@@ -500,7 +590,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.profil_pelanggan }}
                           </td>
@@ -511,7 +601,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.kode_rayon }}
                           </td>
@@ -522,7 +612,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.permintaan_barang }}
                           </td>
@@ -533,18 +623,18 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.metode_pembayaran }}
                           </td>
                         </tr>
                         <tr>
                           <th class="text-left" style="font-size: 14px">
-                            Bank/ No Rek
+                            Bank/No Rek
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.bank }} / {{ defaultItem.no_rek }}
                           </td>
@@ -555,7 +645,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.code_limit }}
                           </td>
@@ -566,7 +656,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.no_npwp }}
                           </td>
@@ -577,7 +667,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.kepemilikan_usaha }}
                           </td>
@@ -588,18 +678,18 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.nama_pemilik }}
                           </td>
                         </tr>
                         <tr>
                           <th class="text-left" style="font-size: 14px">
-                            No Ktp Pemilik
+                            No KTP Pemilik
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.no_ktp_pemilik }}
                           </td>
@@ -610,7 +700,7 @@
                           </th>
                           <td
                             class="text-left"
-                            style="font-size: 14px; font-weight: bold"
+                            style="font-size: 14px; itemchild"
                           >
                             {{ defaultItem.alamat_pemilik }}
                           </td>
@@ -618,10 +708,6 @@
                       </tbody>
                     </template>
                   </v-simple-table>
-                  <v-divider
-                    style="border-color: black !important"
-                    class="mx-1 mb-2"
-                  ></v-divider>
                 </v-container>
               </v-card-text>
             </v-card>
@@ -629,14 +715,14 @@
         </v-toolbar>
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-icon class="mr-1" @click="detailItem(item)" color="primary">
+        <v-icon class="mr-1" @click="detailItem(item)" color="#25695C">
           mdi-information-outline
         </v-icon>
-        <v-icon class="mr-1" @click="editItem(item)" color="warning">
-          mdi-pencil
+        <v-icon class="mr-1" @click="editItem(item)" color="#bf9168">
+          mdi-pencil-outline
         </v-icon>
-        <v-icon class="mr-1" @click="deleteItem(item)" color="red">
-          mdi-delete
+        <v-icon class="mr-1" @click="deleteItem(item)" color="#d42f2f">
+          mdi-delete-outline
         </v-icon>
       </template>
     </v-data-table>
@@ -670,7 +756,7 @@ export default {
         href: "breadcrumbs_link_1",
       },
     ],
-
+    loading: false,
     formTitle: "Add Item",
     value: "add",
     dialog: false,
@@ -913,7 +999,7 @@ export default {
         if (response.data.data.result == "success") {
           this.dialogDelete = false;
           this.snackbar = true;
-          this.colorsnackbar = "green";
+          this.colorsnackbar = "#25695C";
           this.textsnackbar = "Sukses hapus data";
           this.initialize();
         } else {
@@ -967,14 +1053,14 @@ export default {
         if (response.data.data.result == "success") {
           this.dialog = false;
           this.snackbar = true;
-          this.colorsnackbar = "green";
+          this.colorsnackbar = "#25695C";
           this.textsnackbar = "Sukses tambah data";
           this.initialize();
         } else {
           //   this.dialog = false;
           this.snackbar = true;
-          this.colorsnackbar = "red";
-          this.textsnackbar = "Gagal ubah data";
+          this.colorsnackbar = "#D42F2F";
+          this.textsnackbar = "Gagal merubah data";
         }
       } catch (error) {
         console.error(error.response);
@@ -983,8 +1069,8 @@ export default {
           this.$router.push("/");
         } else {
           this.snackbar = true;
-          this.colorsnackbar = "red";
-          this.textsnackbar = "Gagal ubah data";
+          this.colorsnackbar = "#D42F2F";
+          this.textsnackbar = "Gagal merubah data";
         }
       }
     },
@@ -1029,14 +1115,14 @@ export default {
         if (response.data.data.result == "success") {
           this.dialog = false;
           this.snackbar = true;
-          this.colorsnackbar = "green";
-          this.textsnackbar = "Sukses ubah data";
+          this.colorsnackbar = "#25695C";
+          this.textsnackbar = "Sukses merubah data";
           this.initialize();
         } else {
           //   this.dialog = false;
           this.snackbar = true;
-          this.colorsnackbar = "red";
-          this.textsnackbar = "Gagal ubah data";
+          this.colorsnackbar = "#D42F2F";
+          this.textsnackbar = "Gagal merubah data";
         }
       } catch (error) {
         console.error(error.response);
@@ -1046,8 +1132,8 @@ export default {
           this.$router.push("/");
         } else {
           this.snackbar = true;
-          this.colorsnackbar = "red";
-          this.textsnackbar = "Gagal ubah data";
+          this.colorsnackbar = "#D42F2F";
+          this.textsnackbar = "Gagal merubah data";
         }
       }
     },
@@ -1111,6 +1197,7 @@ export default {
       this.dialogDelete = false;
     },
     save() {
+      this.loading = true;
       if (this.defaultItem.nama_customer.length != 0) {
         if (this.defaultItem.code_customer) {
           console.log(this.defaultItem);
@@ -1125,7 +1212,7 @@ export default {
         // console.log(this.defaultItem.kabROCombobox.text);
       } else {
         this.snackbar = true;
-        this.colorsnackbar = "red";
+        this.colorsnackbar = "#D42F2F";
         this.textsnackbar = "Gagal Menambah, Kolom tidak boleh ada yang kosong";
       }
     },
