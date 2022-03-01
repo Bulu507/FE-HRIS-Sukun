@@ -35,7 +35,7 @@
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-btn dark class="mb-2" @click="showAddModal()" color="#25695c">
-            <v-icon small>mdi-plus</v-icon> Add Item
+            <v-icon small>mdi-plus</v-icon> Tambah Data
           </v-btn>
           <!-- Modal Add Edit -->
           <v-dialog persistent v-model="dialog" max-width="800px">
@@ -139,11 +139,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="red" @click="close">
-                  <v-icon left> mdi-close-circle-outline </v-icon> Cancel
+                  <v-icon left> mdi-close-circle-outline </v-icon> Batal
                 </v-btn>
                 <v-btn dark :loading="loading" color="#25695c" @click="save">
                   <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
-                  Save
+                  Simpan
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -153,13 +153,13 @@
           <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
               <v-card-title class="headline"
-                >Are you sure you want to delete this item?</v-card-title
+                >Apakah anda yakin untuk menghapus item ini ?</v-card-title
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="red" @click="closeDelete">
                   <v-icon left> mdi-close-circle-outline </v-icon>
-                  Cancel
+                  Batal
                 </v-btn>
                 <v-btn dark color="#25695c" @click="deleteItemConfirm">
                   <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
@@ -260,7 +260,7 @@ export default {
       { text: "No Telp", value: "no_telp" },
       { text: "Email", value: "email" },
       //   { text: "User ID", value: "username" },
-      { text: "Actions", value: "actions", sortable: false, width: "15%" },
+      { text: "Pilihan", value: "actions", sortable: false, width: "15%" },
     ],
     dataobject: [],
 
@@ -527,7 +527,7 @@ export default {
       this.defaultItem.role_code = "";
       this.defaultItem.email = "";
       this.defaultItem.role_name = "";
-      this.formTitle = "Add Item";
+      this.formTitle = "Tambah Item";
       // console.log();
       if (this.$refs.form) {
         this.$refs.form.reset();

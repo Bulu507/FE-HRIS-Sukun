@@ -4,15 +4,15 @@
       <v-col class="pa-2" cols="12" md="12">
         <v-card>
           <v-card-title class="fontall" v-if="isMorning()">
-            Good Morning, {{ namaAdmin }}</v-card-title
+            Selamat Pagi, {{ namaAdmin }}</v-card-title
           >
           <v-card-title class="fontall" v-else>
-            Good Afternoon, {{ namaAdmin }}</v-card-title
+            Selamat Sore, {{ namaAdmin }}</v-card-title
           >
           <v-card-subtitle class="fontall">
-            it's
+            Hari ini adalah
             {{
-              new Date().toLocaleDateString(undefined, {
+              new Date().toLocaleDateString("id-ID", {
                 weekday: "long",
                 year: "numeric",
                 month: "long",
@@ -84,7 +84,7 @@
       <v-col class="pa-2 mb-3" cols="12" sm="4" md="4">
         <v-card class="fontall pa-md-4" height="355px" elevation="5">
           <header class="fontall pa-2 mb-3" style="text-align: center">
-            Employee Age Breakdown
+            Rata-rata Umur Karyawan
           </header>
           <div>
             <apexchart
@@ -100,7 +100,7 @@
       <v-col class="pa-2 mb-3" cols="12" sm="4" md="4">
         <v-card class="fontall pa-md-4" height="355px" elevation="5">
           <header class="fontall pa-2 mb-3" style="text-align: center">
-            Employment Status
+            Status Karyawan
           </header>
 
           <div id="chart" class="fontall">
@@ -116,7 +116,7 @@
       <v-col class="pa-2 mb-3" cols="12" sm="4" md="4">
         <v-card class="fontall pa-md-4" height="355px" elevation="5">
           <header class="fontall pa-2 mb-3" style="text-align: center">
-            Gender Diversity
+            Perbedaan Gender
           </header>
           <div>
             <apexchart
@@ -153,7 +153,7 @@
       <v-col class="pa-2 mb-3" cols="12" sm="6" md="6">
         <v-card class="fontall pa-md-4" height="355px" elevation="5">
           <header class="fontall pa-2 mb-3" style="text-align: center">
-            Info & Task
+            Info & Tugas
           </header>
 
           <v-tabs v-model="tab" background-color="#9CACA3" color="black" grow>
@@ -289,15 +289,15 @@ export default {
     },
     seriesBar: [
       {
-        name: "Permanent",
+        name: "Permanen",
         data: [100],
       },
       {
-        name: "Contract",
+        name: "Kontrak",
         data: [212],
       },
       {
-        name: "Probation",
+        name: "Masa Percobaan",
         data: [333],
       },
     ],
@@ -336,7 +336,7 @@ export default {
     },
     seriesColumn: [
       {
-        name: "Age Groups",
+        name: "Kelompok Umur",
         data: [35, 50, 47, 38, 25],
       },
     ],
@@ -371,12 +371,12 @@ export default {
       xaxis: {
         categories: ["20'an", "30'an", "40'an", "50'an", "60'an"],
         title: {
-          text: "Age Groups",
+          text: "Kelompok Umur",
         },
       },
       yaxis: {
         title: {
-          text: "Employee",
+          text: "Karyawan",
         },
       },
       fill: {

@@ -40,7 +40,7 @@
           <v-dialog persistent v-model="dialog" max-width="600px">
             <v-card>
               <v-card-title class="headermodalstyle">
-                Edit Menu Access
+                Edit Menu Akses
                 <v-spacer></v-spacer>
                 <v-btn icon dark large class="right" @click="close()">
                   <v-icon>mdi-close-box-outline</v-icon>
@@ -52,7 +52,7 @@
                   <v-row>
                     <v-col cols="12" sm="4" md="4">
                       <div>
-                        <h5>Role</h5>
+                        <h5>Posisi</h5>
                         <h3 class="ml-2">{{ defaultItem.role_name }}</h3>
                       </div>
                     </v-col>
@@ -107,11 +107,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn dark color="red" @click="close">
-                  <v-icon left> mdi-close-circle-outline </v-icon> Cancel
+                  <v-icon left> mdi-close-circle-outline </v-icon> Batal
                 </v-btn>
                 <v-btn :loading="loading" dark color="#25695c" @click="save">
                   <v-icon left> mdi-checkbox-marked-circle-outline </v-icon>
-                  Save
+                  Simpan
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -164,15 +164,15 @@ export default {
     BaseUrlGet: "",
     headers: [
       { text: "Nama", value: "Nama" },
-      { text: "Role Admin", value: "role_name" },
-      { text: "Menu Acces", value: "Menu", width: "50%" },
+      { text: "Posisi Admin", value: "role_name" },
+      { text: "Menu Akses", value: "Menu", width: "50%" },
       //   { text: "User ID", value: "username" },
-      { text: "Actions", value: "actions", sortable: false, width: "15%" },
+      { text: "Pilihan", value: "actions", sortable: false, width: "15%" },
     ],
     headersmenu: [
-      { text: "Menu Code", value: "MenuCode" },
+      { text: "Kode Menu", value: "MenuCode" },
       { text: "Nama Menu", value: "MenuName" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Pilihan", value: "actions", sortable: false },
     ],
     dataobject: [],
     itemsMenu: [],

@@ -164,7 +164,7 @@
               <v-icon size="22"> mdi-account-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Profile</v-list-item-title>
+              <v-list-item-title>Profil</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
 
@@ -188,7 +188,7 @@
               <v-icon size="22"> mdi-email-outline </v-icon>
             </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>Inbox</v-list-item-title>
+              <v-list-item-title>Kotak Masuk</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
