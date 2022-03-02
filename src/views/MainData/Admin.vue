@@ -56,7 +56,7 @@
                         <v-select
                           v-model="defaultItem.role_code"
                           :items="itemsrole"
-                          label="Pilih Role Admin"
+                          label="Pilih Posisi Admin"
                           class="fontall"
                           item-text="name"
                           item-value="id"
@@ -256,7 +256,7 @@ export default {
     BaseUrlGet: "",
     headers: [
       { text: "Nama Admin", value: "nama" },
-      { text: "Role Admin", value: "role_name" },
+      { text: "Posisi Admin", value: "role_name" },
       { text: "No Telp", value: "no_telp" },
       { text: "Email", value: "email" },
       //   { text: "User ID", value: "username" },
